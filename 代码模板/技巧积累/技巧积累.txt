@@ -1,0 +1,49 @@
+1.异或的性质：
+    (1) if a ^ b = c, then a ^ c = b
+    (2) 求最大/最小异或值，可以考虑Trie
+        classic problem: leetcode-421. Maximum XOR of Two Numbers in an Array
+                         leetcode-1707. Maximum XOR With an Element From Array
+
+2.subSequence问题一般可以用 ending with DP解决，复杂度为O(N^2)
+
+3.subArray问题一般可以用 sliding window 方法(或ending with DP， 在这种情况下本质也是一种sliding window方法)，复杂度O(N)
+    classic problem: leetcode-53. Maximum Subarray
+                     leetcode-992. Subarrays with K Different Integers
+
+4.单调双端队列--mono queue技术(deque实现)用来在O(N)时间内维护一个最大长度为N，动态变化的区间内的最大/最小值，可以和 sliding window 结合以降低其复杂度。
+    classic problem: leetcode-239. Sliding Window Maxium
+                     leetcode-1425. Constrained Subsequence Sum
+                     leetcode-1438. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit
+
+5.对于某一数列A，求一个值tar, 使得数列中的所有值移动到这个值的代价和最小。若数列长度为奇数, 则tar为中位数；若数列长度为偶数，此时中位数有两个,
+假设分别为 a 和 b ,则 tar 的取值可以为[a, b]区间中的任意一个数。总体来说, 这两种情况下 tar 都可以直接取 A[n / 2], n为数列长度.
+    classic problem: leetcode-462. Minimum Moves to Equal Array Elements II
+
+6.对于没有思路的复杂问题，考虑[分治]或者[二分]
+    classic problem: 剑指 Offer 51. 数组中的逆序对
+
+7.求数x的二进制表达中位为1的最低位（Get its last set bit）
+    x & (-x) 或者 x & ~(x - 1)
+
+8.枚举子集的子集
+// i 为子集的 bitmask, j 为子集的子集的 bitmask
+for (int i = 0; i < (1 << n); ++i) {    // 枚举子集
+    for (int j = i; j; j = (j - 1) & i) {   // 枚举子集的子集   
+        // do something
+    }
+}
+    classic problem: leetcode-1723. Find Minimum Time to Finish All Jobs
+                     leetcode-1178. Number of Valid Words for Each Puzzle
+
+9.遍历三角形或其他排列时，可以利用对顶点的升序遍历来排除重复解
+    for(int u = 0; u < n; ++u){
+        for(int v = u + 1; v < n; ++v){
+            for(int w = v + 1; w < n; ++w){
+                ...
+            }
+        }
+    }
+    classic problem: leetcode-1761. Minimum Degree of a Connected Trio in a Graph
+
+10.由纯a-z字符组成的字符串相关问题，可以考虑用bitmask来代替unordered_map
+    classic problem: 面试题 01.01. 判定字符是否唯一
