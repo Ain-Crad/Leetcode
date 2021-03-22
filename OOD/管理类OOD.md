@@ -11,7 +11,7 @@
 
 1. Clarity-What
 
-    除了题目中问的名词外，还需要从管理的名词来考虑
+    除了题目中问的名词外，还需要从管理的名词来考虑(**输入输出**)
 
     ```
     Example:
@@ -93,4 +93,59 @@
     **注意使用收据来解决类之间的映射关系**
 
     ![object_spot](./imgs/20.png)
+
+
+5. Correctness
+
+    - Validate use cases(检查是否支持所有的use case)
+    - Follow good practice(加分项)
+        ```
+        1. private protected public
+
+        2. 继承
+
+        3. exception
+        ```
+    - S.O.L.I.D
+    - Design pattern
+        ![singleton](./imgs/21.png)
+        
+        ```C++
+        // singleton template
+
+        class S
+        {
+            public:
+                static S& getInstance()
+                {
+                    static S    instance; // Guaranteed to be destroyed.
+                                        // Instantiated on first use.
+                    return instance;
+                }
+            private:
+                S() {}                    // Constructor? (the {} brackets) are needed here.
+
+                // C++ 03
+                // ========
+                // Don't forget to declare these two. You want to make sure they
+                // are inaccessible(especially from outside), otherwise, you may accidentally get copies of
+                // your singleton appearing.
+                S(S const&);              // Don't Implement
+                void operator=(S const&); // Don't implement
+
+                // C++ 11
+                // =======
+                // We can use the better technique of deleting the methods
+                // we don't want.
+            public:
+                S(S const&)               = delete;
+                void operator=(S const&)  = delete;
+
+                // Note: Scott Meyers mentions in his Effective Modern
+                //       C++ book, that deleted functions should generally
+                //       be public as it results in better error messages
+                //       due to the compilers behavior to check accessibility
+                //       before deleted status
+        };
+        ```
 
