@@ -15,28 +15,29 @@ private:
     }
 };
 
-// iterative solution --recommend
+// iterative solution -- recommand
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        if(root == nullptr) return ans;
-        stack<TreeNode *> stk;
-        stk.push(root);
-        while(stk.size()){
-            auto node = stk.top();
-            if(node->left) stk.push(node->left), node->left = nullptr;
-            else{
-                ans.push_back(node->val);
-                stk.pop();
-                if(node->right) stk.push(node->right);
+        vector<int> result;
+        stack<TreeNode*> st;
+        TreeNode* cur = root;
+        while (cur != NULL || !st.empty()) {
+            if (cur != NULL) { // 指针来访问节点，访问到最底层
+                st.push(cur); // 讲访问的节点放进栈
+                cur = cur->left;                // 左
+            } else {
+                cur = st.top(); // 从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）
+                st.pop();
+                result.push_back(cur->val);     // 中
+                cur = cur->right;               // 右
             }
         }
-        return ans;
+        return result;
     }
 };
 
-// iterative solution --typical
+// iterative solution
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
