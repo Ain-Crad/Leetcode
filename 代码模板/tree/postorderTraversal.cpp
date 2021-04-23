@@ -17,7 +17,73 @@ private:
     }
 };
 
-//iterative solution -- recommend
+//iterative solution --recommend1
+// space: O(n)
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(root == nullptr) return {};
+
+        vector<int> ans;
+        stack<TreeNode*> stk;
+        TreeNode* cur = root;
+        unordered_set<TreeNode*> vis;
+
+        while(cur || stk.size()){
+            while(cur){
+                stk.push(cur);
+                cur = cur->left;
+            }
+
+            cur = stk.top();
+            if(cur->right && !vis.count(cur->right)){
+                vis.insert(cur->right);
+                cur = cur->right;
+            }else{
+                ans.push_back(cur->val);
+                stk.pop();
+                cur = nullptr;
+            }
+        }
+
+        return ans;
+    }
+};
+
+//iterative solution --recommend2
+// space: O(1)
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(root == nullptr) return {};
+
+        vector<int> ans;
+        stack<TreeNode*> stk;
+        TreeNode* cur = root;
+        TreeNode* pre = nullptr;
+
+        while(cur || stk.size()){
+            while(cur){
+                stk.push(cur);
+                cur = cur->left;
+            }
+
+            cur = stk.top();
+            if(cur->right && cur->right != pre){
+                cur = cur->right;
+            }else{
+                ans.push_back(cur->val);
+                stk.pop();
+                pre = cur;
+                cur = nullptr;
+            }
+        }
+
+        return ans;
+    }
+};
+
+//iterative solution
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {

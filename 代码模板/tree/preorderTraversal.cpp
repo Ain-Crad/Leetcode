@@ -15,7 +15,30 @@ private:
     }
 };
 
-//iterative solution -- recommend
+//iterative solution -- recommend1
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        if(!root) return {};
+
+        vector<int> ans;
+        stack<TreeNode*> stk;
+        TreeNode* cur = root;
+        while(cur || stk.size()){
+            while(cur){
+                ans.push_back(cur->val);
+                stk.push(cur);
+                cur = cur->left;
+            }
+            cur = stk.top();
+            stk.pop();
+            cur = cur->right;
+        }
+        return ans;
+    }
+};
+
+//iterative solution -- recommend2
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {

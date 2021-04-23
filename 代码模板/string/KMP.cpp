@@ -7,6 +7,8 @@
 
 using namespace std;
 
+// next[i] 表示 P[0] ~ P[i] 这一个子串，使得前 k 个字符恰等于后 k 个字符 的最大的 k. 
+// 特别地，k 不能取 i+1（因为这个子串一共才 i+1 个字符，自己肯定与自己相等，就没有意义了）。
 void buildNext(string &p, vector<int> &next){
     next[0] = 0;
     int p_idx = 1, pre_match_len = 0;
