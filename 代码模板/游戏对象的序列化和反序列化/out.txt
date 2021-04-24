@@ -1,0 +1,8 @@
+id = 100000
+name = "Npc_A_1"
+is_monster = false
+hp = 101010.00
+mp = 0.00
+favorability = -100
+words = ["wen_rou", "shan_liang"]
+property = {"xing_qing": 100.00, "cai_hua": 26.00, "wu_gong": 76.00, "cai_li": 98.00}
