@@ -17,7 +17,55 @@ private:
     }
 };
 
-//iterative solution --recommend1
+// iterative solution --recommend
+// 不破坏树结构
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        if(root == nullptr) return {};
+
+        unordered_set<TreeNode*> vis;
+
+        stack<TreeNode*> stk;
+        stk.push(root);
+        vector<int> ans;
+        while(stk.size()){
+            auto node = stk.top();
+            if(node->left && vis.find(node->left) == vis.end()){
+                stk.push(node->left);
+                vis.insert(node->left);
+            }else if(node->right && vis.find(node->right) == vis.end()){
+                stk.push(node->right);
+                vis.insert(node->right);
+            }else{
+                ans.push_back(node->val);
+                stk.pop();
+            }
+        }
+        return ans;
+    }
+};
+
+//iterative solution 2
+// 破坏树结构
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        if(root == nullptr) return ans;
+        stack<TreeNode*> stk;
+        stk.push(root);
+        while(stk.size()){
+            auto node = stk.top();
+            if(!node->left && !node->right) ans.push_back(node->val), stk.pop();
+            if(node->right) stk.push(node->right), node->right = nullptr;
+            if(node->left) stk.push(node->left), node->left = nullptr;
+        }
+        return ans;
+    }
+};
+
+//iterative solution 3
 // space: O(n)
 class Solution {
 public:
@@ -50,7 +98,7 @@ public:
     }
 };
 
-//iterative solution --recommend2
+//iterative solution 4
 // space: O(1)
 class Solution {
 public:
@@ -83,7 +131,7 @@ public:
     }
 };
 
-//iterative solution
+//iterative solution 4
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {

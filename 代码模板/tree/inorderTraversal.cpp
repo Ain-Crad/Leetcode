@@ -19,6 +19,31 @@ private:
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
+        if(root == nullptr) return {};
+        unordered_set<TreeNode*> vis;
+        vector<int> ans;
+        stack<TreeNode*> stk;
+        stk.push(root);
+        while(stk.size()){
+            auto node = stk.top();
+            if(node->left && vis.find(node->left) == vis.end()) {
+                stk.push(node->left);
+                vis.insert(node->left);
+            }
+            else {
+                ans.push_back(node->val);
+                stk.pop();
+                if(node->right) stk.push(node->right);
+            }
+        }
+        return ans;
+    }
+};
+
+// iterative solution 2
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
         vector<int> ans;
         stack<TreeNode*> stk;
         TreeNode* cur = root;
@@ -37,7 +62,7 @@ public:
     }
 };
 
-// iterative solution
+// iterative solution 3
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
